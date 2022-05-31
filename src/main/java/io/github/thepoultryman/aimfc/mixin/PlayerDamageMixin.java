@@ -12,7 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PlayerDamageMixin {
 	@Inject(method = "damage", at = @At("HEAD"))
 	private void aimfc$unhideArmor(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-		ArmorHidingHelper.hideArmor(false, 0);
+		if (source.isFromFalling()) {
+			ArmorHidingHelper.hideArmor(false, 3);
+		} else {
+			ArmorHidingHelper.hideArmor(false);
+		}
 		ArmorHidingHelper.resetHideTime();
 	}
 }
