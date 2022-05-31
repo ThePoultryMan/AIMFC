@@ -3,16 +3,16 @@ package io.github.thepoultryman.aimfc;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.EquipmentSlot;
 import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
+import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ArmorCombat implements ModInitializer {
+public class ArmorCombat implements ClientModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("aimfc");
 
 	@Override
-	public void onInitialize(ModContainer mod) {
+	public void onInitializeClient(ModContainer mod) {
 		LOGGER.info("AIMFC, Hiding your armor since 2022");
 
 		ArmorHidingHelper.SLOT_MAP.put(EquipmentSlot.HEAD, 0);

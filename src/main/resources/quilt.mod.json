@@ -14,7 +14,7 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.thepoultryman.aimfc.ArmorCombat"
+			"client_init": "io.github.thepoultryman.aimfc.ArmorCombat"
 		},
 		"depends": [
 			{
