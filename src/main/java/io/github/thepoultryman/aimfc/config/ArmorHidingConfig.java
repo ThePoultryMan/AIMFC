@@ -1,0 +1,65 @@
+package io.github.thepoultryman.aimfc.config;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.quiltmc.loader.api.QuiltLoader;
+
+import java.io.*;
+
+public class ArmorHidingConfig {
+	private static final String CONFIG_LOCATION = QuiltLoader.getConfigDir() + "/aimfc.json";
+	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+	public static ConfigFormat hidingConfig;
+
+	public static ConfigFormat loadConfig() {
+		if (!new File(CONFIG_LOCATION).exists()) {
+			FileWriter writer;
+			try {
+				writer = new FileWriter(CONFIG_LOCATION);
+				hidingConfig = new ConfigFormat();
+
+				gson.toJson(hidingConfig, writer);
+
+				try {
+					writer.flush();
+					writer.close();
+
+					return hidingConfig;
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		} else {
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(CONFIG_LOCATION));
+
+				return gson.fromJson(reader, ConfigFormat.class);
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	public static void saveConfigChanges(ConfigFormat updatedConfig) {
+		if (new File(CONFIG_LOCATION).exists()) {
+			FileWriter writer;
+			try {
+				writer = new FileWriter(CONFIG_LOCATION);
+
+				gson.toJson(updatedConfig, writer);
+
+				try {
+					writer.flush();
+					writer.close();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+}

@@ -11,21 +11,15 @@ import java.util.Map;
 public class ArmorHidingHelper {
 	public static final Map<EquipmentSlot, Integer> SLOT_MAP = new HashMap<>();
 
-	private static boolean overrideArmorHiding = false;
 	private static final boolean[] hideArmor = new boolean[] {true, true, true, true};
 	private static Integer hideTime = 0;
 
-	public static void overrideArmorHiding(boolean override) {
-		overrideArmorHiding = override;
-	}
-
-	public static void overrideArmorHiding(boolean override, PlayerEntity player) {
-		overrideArmorHiding = override;
-		player.sendMessage(new TranslatableText("message.aimfc.hiding_" + override), false);
+	public static void sendStatusChatMessage(PlayerEntity player) {
+		player.sendMessage(new TranslatableText("message.aimfc.hiding_" + shouldOverrideArmorHiding()), false);
 	}
 
 	public static boolean shouldOverrideArmorHiding() {
-		return overrideArmorHiding;
+		return ArmorCombat.config.shouldOverrideHiddenArmor();
 	}
 
 	public static void hideArmor(boolean hide) {
@@ -37,7 +31,7 @@ public class ArmorHidingHelper {
 	}
 
 	public static boolean shouldHideArmor(int slot) {
-		if (overrideArmorHiding) {
+		if (shouldOverrideArmorHiding()) {
 			return false;
 		} else {
 			return hideArmor[slot];

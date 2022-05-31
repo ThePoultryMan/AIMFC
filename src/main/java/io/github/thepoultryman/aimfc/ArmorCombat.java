@@ -1,5 +1,7 @@
 package io.github.thepoultryman.aimfc;
 
+import io.github.thepoultryman.aimfc.config.ArmorHidingConfig;
+import io.github.thepoultryman.aimfc.config.ConfigFormat;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
@@ -16,6 +18,7 @@ public class ArmorCombat implements ClientModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("aimfc");
 
 	private static final KeyBind TOGGLE_KEY = new KeyBind("key.aimfc.toggle_armor_hiding", GLFW.GLFW_KEY_H, "key.aimfc.category");
+	public static ConfigFormat config;
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -27,6 +30,8 @@ public class ArmorCombat implements ClientModInitializer {
 		ArmorHidingHelper.SLOT_MAP.put(EquipmentSlot.CHEST, 1);
 		ArmorHidingHelper.SLOT_MAP.put(EquipmentSlot.LEGS, 2);
 		ArmorHidingHelper.SLOT_MAP.put(EquipmentSlot.FEET, 3);
+
+		config = ArmorHidingConfig.loadConfig();
 
 		ClientTickEvents.START.register(this::decrementHideTime);
 	}
@@ -43,7 +48,9 @@ public class ArmorCombat implements ClientModInitializer {
 
 		while (TOGGLE_KEY.wasPressed()) {
 			if (client.player != null) {
-				ArmorHidingHelper.overrideArmorHiding(!ArmorHidingHelper.shouldOverrideArmorHiding(), client.player);
+				config.setOverrideHiddenArmor(!config.shouldOverrideHiddenArmor());
+				ArmorHidingConfig.saveConfigChanges(config);
+				ArmorHidingHelper.sendStatusChatMessage(client.player);
 			} else {
 				LOGGER.warn(new TranslatableText("warning.keybind_toggle_failure").getString());
 			}
