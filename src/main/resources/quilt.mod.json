@@ -2,19 +2,19 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "io.github.thepoultryman",
-		"id": "mod_name",
+		"id": "aimfc",
 		"version": "${version}",
 		"metadata": {
-			"name": "Mod Name",
-			"description": "A short description of your mod.",
+			"name": "AIMFC",
+			"description": "Hides armor while the player is not in combat",
 			"contributors": {
 				"Me!": "ThePoultryMan"
 			},
-			"icon": "assets/modid/icon.png"
+			"icon": "assets/aimfc/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.thepoultryman.modid.ModClass"
+			"init": "io.github.thepoultryman.aimfc.ArmorCombat"
 		},
 		"depends": [
 			{
@@ -31,5 +31,5 @@
 			}
 		]
 	},
-	"mixin": "modid.mixins.json"
+	"mixin": "aimfc.mixins.json"
 }
