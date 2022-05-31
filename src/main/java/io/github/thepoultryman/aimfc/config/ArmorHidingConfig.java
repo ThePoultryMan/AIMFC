@@ -25,22 +25,25 @@ public class ArmorHidingConfig {
 				try {
 					writer.flush();
 					writer.close();
-
-					return hidingConfig;
 				} catch (IOException e) {
-					throw new RuntimeException(e);
+					ArmorCombat.LOGGER.warn("There was an issue closing the file writer, so it has remained open.");
 				}
+
+				return hidingConfig;
 			} catch (IOException e) {
-				throw new RuntimeException(e);
+				ArmorCombat.LOGGER.warn("There was an issue while creating the config file.", e);
 			}
 		} else {
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(CONFIG_LOCATION));
 				return gson.fromJson(reader, ConfigFormat.class);
 			} catch (FileNotFoundException e) {
-				throw new RuntimeException(e);
+				ArmorCombat.LOGGER.warn("There was an error reading your config file.", e);
 			}
 		}
+
+		ArmorCombat.LOGGER.error("There has been a severe issue during config creation/reading. Unexpected behavior or crashes may follow.");
+		return null;
 	}
 
 	public static void saveConfigChanges(ConfigFormat updatedConfig) {
