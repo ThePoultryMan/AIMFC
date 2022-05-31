@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.text.TranslatableText;
 import org.lwjgl.glfw.GLFW;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
@@ -52,7 +51,7 @@ public class ArmorCombat implements ClientModInitializer {
 				ArmorHidingConfig.saveConfigChanges(config);
 				ArmorHidingHelper.sendStatusChatMessage(client.player);
 			} else {
-				LOGGER.warn(new TranslatableText("warning.keybind_toggle_failure").getString());
+				LOGGER.warn("Armor hiding cannot be disabled due to an unusual error.");
 			}
 
 		}
