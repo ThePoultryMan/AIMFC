@@ -1,15 +1,27 @@
 package io.github.thepoultryman.aimfc;
 
+import net.minecraft.entity.EquipmentSlot;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ArmorHidingHelper {
-	private static boolean hideArmor = true;
+	public static final Map<EquipmentSlot, Integer> SLOT_MAP = new HashMap<>();
+
+	private static final boolean[] hideArmor = new boolean[] {true, true, true, true};
 	private static Integer hideTime = 0;
 
 	public static void hideArmor(boolean hide) {
-		hideArmor = hide;
+		Arrays.fill(hideArmor, hide);
 	}
 
-	public static boolean shouldHideArmor() {
-		return hideArmor;
+	public static void hideArmor(boolean hide, int slot) {
+		hideArmor[slot] = hide;
+	}
+
+	public static boolean shouldHideArmor(int slot) {
+		return hideArmor[slot];
 	}
 
 	public static void resetHideTime() {
