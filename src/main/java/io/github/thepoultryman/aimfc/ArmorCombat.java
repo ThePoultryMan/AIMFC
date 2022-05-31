@@ -41,7 +41,7 @@ public class ArmorCombat implements ClientModInitializer {
 		}
 
 		while (TOGGLE_KEY.wasPressed()) {
-			ArmorHidingHelper.overrideArmorHiding(!ArmorHidingHelper.shouldOverrideArmorHiding());
+			ArmorHidingHelper.overrideArmorHiding(!ArmorHidingHelper.shouldOverrideArmorHiding(), client.player);
 		}
 	}
 }

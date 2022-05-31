@@ -1,4 +1,6 @@
 {
   "key.aimfc.category": "Armor Is Meant For Combat",
-  "key.aimfc.toggle_armor_hiding": "Toggle Armor Hiding"
+  "key.aimfc.toggle_armor_hiding": "Toggle Armor Hiding",
+  "message.aimfc.hiding_false": "Armor is no longer being hidden.",
+  "message.aimfc.hiding_true": "Armor will now be hidden."
 }

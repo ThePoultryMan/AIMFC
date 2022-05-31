@@ -1,6 +1,8 @@
 package io.github.thepoultryman.aimfc;
 
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.TranslatableText;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +17,11 @@ public class ArmorHidingHelper {
 
 	public static void overrideArmorHiding(boolean override) {
 		overrideArmorHiding = override;
+	}
+
+	public static void overrideArmorHiding(boolean override, PlayerEntity player) {
+		overrideArmorHiding = override;
+		player.sendMessage(new TranslatableText("message.aimfc.hiding_" + override), false);
 	}
 
 	public static boolean shouldOverrideArmorHiding() {
