@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.text.TranslatableText;
 import org.lwjgl.glfw.GLFW;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
@@ -41,7 +42,12 @@ public class ArmorCombat implements ClientModInitializer {
 		}
 
 		while (TOGGLE_KEY.wasPressed()) {
-			ArmorHidingHelper.overrideArmorHiding(!ArmorHidingHelper.shouldOverrideArmorHiding(), client.player);
+			if (client.player != null) {
+				ArmorHidingHelper.overrideArmorHiding(!ArmorHidingHelper.shouldOverrideArmorHiding(), client.player);
+			} else {
+				LOGGER.warn(new TranslatableText("warning.keybind_toggle_failure").getString());
+			}
+
 		}
 	}
 }
