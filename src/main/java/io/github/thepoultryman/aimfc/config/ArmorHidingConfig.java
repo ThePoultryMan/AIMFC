@@ -2,6 +2,7 @@ package io.github.thepoultryman.aimfc.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.github.thepoultryman.aimfc.ArmorCombat;
 import org.quiltmc.loader.api.QuiltLoader;
 
 import java.io.*;
@@ -35,7 +36,6 @@ public class ArmorHidingConfig {
 		} else {
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(CONFIG_LOCATION));
-
 				return gson.fromJson(reader, ConfigFormat.class);
 			} catch (FileNotFoundException e) {
 				throw new RuntimeException(e);
@@ -60,6 +60,9 @@ public class ArmorHidingConfig {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+		} else {
+			ArmorCombat.LOGGER.warn("A config file did not exist, so a new one is being created.");
+			ArmorCombat.config = loadConfig();
 		}
 	}
 }
