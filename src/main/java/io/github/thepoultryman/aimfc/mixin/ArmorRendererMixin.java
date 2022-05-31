@@ -16,6 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ArmorRendererMixin<T extends LivingEntity, A extends BipedEntityModel<T>> {
 	@Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
 	private void aimfc$cancelArmorRendering(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model, CallbackInfo ci) {
-		if (ArmorHidingHelper.shouldHideArmor(ArmorHidingHelper.SLOT_MAP.get(armorSlot))) ci.cancel();
+		if (entity.isPlayer()) {
+			if (ArmorHidingHelper.shouldHideArmor(ArmorHidingHelper.SLOT_MAP.get(armorSlot))) {
+				ci.cancel();
+			}
+		}
 	}
 }
