@@ -15,7 +15,7 @@ public class ArmorHidingHelper {
 	private static Integer hideTime = 0;
 
 	public static void sendStatusChatMessage(PlayerEntity player) {
-		player.sendMessage(new TranslatableText("message.aimfc.hiding_" + shouldOverrideArmorHiding()), false);
+		player.sendMessage(new TranslatableText("message.aimfc.hiding_" + !shouldOverrideArmorHiding()), false);
 	}
 
 	public static boolean shouldOverrideArmorHiding() {
