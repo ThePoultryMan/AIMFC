@@ -11,7 +11,7 @@ public class OverrideHiddenArmorCommands {
 		@Override
 		public int run(CommandContext<QuiltClientCommandSource> context) {
 			ArmorCombat.config.setOverrideHiddenArmor(true);
-			context.getSource().sendFeedback(new TranslatableText("message.aimfc.hiding_" + false));
+			context.getSource().sendFeedback(new TranslatableText("message.aimfc.hiding_false"));
 			return 1;
 		}
 	}
@@ -20,7 +20,7 @@ public class OverrideHiddenArmorCommands {
 		@Override
 		public int run(CommandContext<QuiltClientCommandSource> context) {
 			ArmorCombat.config.setOverrideHiddenArmor(false);
-			context.getSource().sendFeedback(new TranslatableText("message.aimfc.hiding_" + true));
+			context.getSource().sendFeedback(new TranslatableText("message.aimfc.hiding_true"));
 			return 1;
 		}
 	}
