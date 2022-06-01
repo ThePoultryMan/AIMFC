@@ -17,10 +17,12 @@ public class ElytraRendererMixin {
 			at = @At("HEAD"), cancellable = true)
 	private void aimfc$hideElytra(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity,
 								  float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
-		if (ArmorCombat.config.getElytraConfig().shouldHide() && !ArmorCombat.config.getElytraConfig().usingDynamicReveal()) {
-			ci.cancel();
-		} else if (ArmorCombat.config.getElytraConfig().shouldHide() && ArmorCombat.config.getElytraConfig().usingDynamicReveal() && entity instanceof PlayerEntity player && !player.isFallFlying()) {
-			ci.cancel();
+		if (!ArmorCombat.config.shouldOverrideHiddenArmor()) {
+			if (ArmorCombat.config.getElytraConfig().shouldHide() && !ArmorCombat.config.getElytraConfig().usingDynamicReveal()) {
+				ci.cancel();
+			} else if (ArmorCombat.config.getElytraConfig().shouldHide() && ArmorCombat.config.getElytraConfig().usingDynamicReveal() && entity instanceof PlayerEntity player && !player.isFallFlying()) {
+				ci.cancel();
+			}
 		}
 	}
 }
