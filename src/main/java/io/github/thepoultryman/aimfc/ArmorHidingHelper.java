@@ -31,7 +31,7 @@ public class ArmorHidingHelper {
 	}
 
 	public static boolean shouldHideArmor(int slot) {
-		if (shouldOverrideArmorHiding()) {
+		if (shouldOverrideArmorHiding() || ArmorCombat.config.getAlwaysVisiblePart(slot)) {
 			return false;
 		} else {
 			return hideArmor[slot];
@@ -39,7 +39,7 @@ public class ArmorHidingHelper {
 	}
 
 	public static void resetHideTime() {
-		hideTime = 10 * 20;
+		hideTime = ArmorCombat.config.getArmorVisibilityDelay() * 20;
 	}
 
 	public static void decrementHideTime() {
