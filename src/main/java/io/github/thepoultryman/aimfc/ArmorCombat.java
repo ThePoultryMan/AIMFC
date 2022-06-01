@@ -1,14 +1,18 @@
 package io.github.thepoultryman.aimfc;
 
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.github.thepoultryman.aimfc.config.ArmorHidingConfig;
 import io.github.thepoultryman.aimfc.config.ConfigFormat;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
 import org.lwjgl.glfw.GLFW;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +28,11 @@ public class ArmorCombat implements ClientModInitializer {
 		LOGGER.info("AIMFC, Hiding your armor since 2022");
 
 		KeyBindingHelper.registerKeyBinding(TOGGLE_KEY);
+
+		CommandRegistrationCallback.EVENT.register(((dispatcher, integrated, dedicated) -> {
+			LiteralCommandNode<ServerCommandSource> aimfcCommand = CommandManager.literal("aimfc").executes(new AimfcCommand()).build();
+			dispatcher.getRoot().addChild(aimfcCommand);
+		}));
 
 		ArmorHidingHelper.SLOT_MAP.put(EquipmentSlot.HEAD, 0);
 		ArmorHidingHelper.SLOT_MAP.put(EquipmentSlot.CHEST, 1);
