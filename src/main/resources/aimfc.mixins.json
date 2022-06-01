@@ -5,7 +5,8 @@
 	"compatibilityLevel": "JAVA_17",
 	"client": [
       "ArmorRendererMixin",
-      "PlayerDamageMixin"
+      "PlayerDamageMixin",
+      "hiddenpieces.ElytraRendererMixin"
     ],
 	"injectors": {
 		"defaultRequire": 1
