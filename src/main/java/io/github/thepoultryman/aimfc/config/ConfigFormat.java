@@ -35,6 +35,10 @@ public class ConfigFormat {
 		return this.hideOtherPieces;
 	}
 
+	public OtherPieces.Elytra getElytraConfig() {
+		return this.hideOtherPieces.elytra;
+	}
+
 	private static class AlwaysVisibleParts {
 		boolean head = false;
 		boolean chest = false;
@@ -43,10 +47,19 @@ public class ConfigFormat {
 	}
 
 	public static class OtherPieces {
-		boolean elytra = false;
+		Elytra elytra = new Elytra();
 
-		public boolean shouldHideElytra() {
-			return this.elytra;
+		public static class Elytra {
+			boolean hide = false;
+			boolean dynamicReveal = true;
+
+			public boolean shouldHide() {
+				return this.hide;
+			}
+
+			public boolean usingDynamicReveal() {
+				return this.dynamicReveal;
+			}
 		}
 	}
 }

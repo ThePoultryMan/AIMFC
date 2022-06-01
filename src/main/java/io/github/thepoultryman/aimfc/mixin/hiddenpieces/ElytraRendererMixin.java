@@ -16,6 +16,6 @@ public class ElytraRendererMixin {
 			at = @At("HEAD"), cancellable = true)
 	private void aimfc$hideElytra(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Entity entity,
 								  float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo ci) {
-		if (ArmorCombat.config.getOtherPieces().shouldHideElytra()) ci.cancel();
+		if (ArmorCombat.config.getElytraConfig().shouldHide()) ci.cancel();
 	}
 }
