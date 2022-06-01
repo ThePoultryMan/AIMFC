@@ -1,18 +1,22 @@
 package io.github.thepoultryman.aimfc;
 
+import com.mojang.brigadier.arguments.BoolArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import io.github.thepoultryman.aimfc.commands.AimfcCommand;
+import io.github.thepoultryman.aimfc.commands.OverrideHiddenArmorCommand;
 import io.github.thepoultryman.aimfc.config.ArmorHidingConfig;
 import io.github.thepoultryman.aimfc.config.ConfigFormat;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
 import org.lwjgl.glfw.GLFW;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
-import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
+import org.quiltmc.qsl.command.api.client.ClientCommandManager;
+import org.quiltmc.qsl.command.api.client.ClientCommandRegistrationCallback;
+import org.quiltmc.qsl.command.api.client.QuiltClientCommandSource;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +33,13 @@ public class ArmorCombat implements ClientModInitializer {
 
 		KeyBindingHelper.registerKeyBinding(TOGGLE_KEY);
 
-		CommandRegistrationCallback.EVENT.register(((dispatcher, integrated, dedicated) -> {
-			LiteralCommandNode<ServerCommandSource> aimfcCommand = CommandManager.literal("aimfc").executes(new AimfcCommand()).build();
-			dispatcher.getRoot().addChild(aimfcCommand);
+		ClientCommandRegistrationCallback.EVENT.register(((dispatcher) -> {
+			LiteralArgumentBuilder<QuiltClientCommandSource> aimfcCommand = ClientCommandManager.literal("aimfc").executes(new AimfcCommand());
+			LiteralCommandNode<QuiltClientCommandSource> overrideCommand = ClientCommandManager.literal("overridehiddenarmor")
+					.executes(new OverrideHiddenArmorCommand()).then(ClientCommandManager.argument("override", BoolArgumentType.bool())).build();
+			aimfcCommand.then(overrideCommand);
+
+			dispatcher.getRoot().addChild(aimfcCommand.build());
 		}));
 
 		ArmorHidingHelper.SLOT_MAP.put(EquipmentSlot.HEAD, 0);
