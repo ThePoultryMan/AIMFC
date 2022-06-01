@@ -1,10 +1,9 @@
 package io.github.thepoultryman.aimfc;
 
-import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.github.thepoultryman.aimfc.commands.AimfcCommand;
-import io.github.thepoultryman.aimfc.commands.OverrideHiddenArmorCommand;
+import io.github.thepoultryman.aimfc.commands.OverrideHiddenArmorCommands;
 import io.github.thepoultryman.aimfc.config.ArmorHidingConfig;
 import io.github.thepoultryman.aimfc.config.ConfigFormat;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -14,12 +13,13 @@ import net.minecraft.entity.EquipmentSlot;
 import org.lwjgl.glfw.GLFW;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
-import org.quiltmc.qsl.command.api.client.ClientCommandManager;
 import org.quiltmc.qsl.command.api.client.ClientCommandRegistrationCallback;
 import org.quiltmc.qsl.command.api.client.QuiltClientCommandSource;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.quiltmc.qsl.command.api.client.ClientCommandManager.literal;
 
 public class ArmorCombat implements ClientModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("aimfc");
@@ -34,9 +34,10 @@ public class ArmorCombat implements ClientModInitializer {
 		KeyBindingHelper.registerKeyBinding(TOGGLE_KEY);
 
 		ClientCommandRegistrationCallback.EVENT.register(((dispatcher) -> {
-			LiteralArgumentBuilder<QuiltClientCommandSource> aimfcCommand = ClientCommandManager.literal("aimfc").executes(new AimfcCommand());
-			LiteralCommandNode<QuiltClientCommandSource> overrideCommand = ClientCommandManager.literal("overridehiddenarmor")
-					.executes(new OverrideHiddenArmorCommand()).then(ClientCommandManager.argument("override", BoolArgumentType.bool())).build();
+			LiteralArgumentBuilder<QuiltClientCommandSource> aimfcCommand = literal("aimfc").executes(new AimfcCommand());
+			LiteralCommandNode<QuiltClientCommandSource> overrideCommand = literal("overridehiddenarmor")
+					.then(literal("on").executes(new OverrideHiddenArmorCommands.TurnOn()))
+					.then(literal("off").executes(new OverrideHiddenArmorCommands.TurnOff())).build();
 			aimfcCommand.then(overrideCommand);
 
 			dispatcher.getRoot().addChild(aimfcCommand.build());
