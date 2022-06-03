@@ -3,6 +3,7 @@
 minecraft = "1.18.2"
 quilt_mappings = "1.18.2+build.24"
 quilt_loader = "0.17.0-beta.1"
+night_config = "3.6.5"
 
 quilted_fabric_api = "1.0.0-beta.13+0.51.1-1.18.2"
 
@@ -10,6 +11,8 @@ quilted_fabric_api = "1.0.0-beta.13+0.51.1-1.18.2"
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "quilt_mappings" }
 quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
+night_config = { module = "com.electronwill.night-config:core", version.ref = "night_config" }
+night_config_toml = { module = "com.electronwill.night-config:toml", version.ref = "night_config" }
 
 quilted_fabric_api = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api", version.ref = "quilted_fabric_api" }
 

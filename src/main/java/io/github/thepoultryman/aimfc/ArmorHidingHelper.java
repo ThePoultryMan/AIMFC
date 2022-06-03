@@ -19,7 +19,7 @@ public class ArmorHidingHelper {
 	}
 
 	public static boolean shouldOverrideArmorHiding() {
-		return ArmorCombat.config.shouldOverrideHiddenArmor();
+		return ArmorCombat.tomlConfig.shouldOverrideHiddenArmor();
 	}
 
 	public static void hideArmor(boolean hide) {

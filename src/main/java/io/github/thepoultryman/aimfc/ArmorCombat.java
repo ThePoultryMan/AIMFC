@@ -7,6 +7,7 @@ import io.github.thepoultryman.aimfc.commands.OverrideHiddenArmorCommands;
 import io.github.thepoultryman.aimfc.commands.ReloadConfigCommand;
 import io.github.thepoultryman.aimfc.config.ArmorHidingConfig;
 import io.github.thepoultryman.aimfc.config.ConfigFormat;
+import io.github.thepoultryman.aimfc.config.TomlConfig;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
@@ -27,6 +28,7 @@ public class ArmorCombat implements ClientModInitializer {
 
 	private static final KeyBind TOGGLE_KEY = new KeyBind("key.aimfc.toggle_armor_hiding", GLFW.GLFW_KEY_H, "key.aimfc.category");
 	public static ConfigFormat config;
+	public static TomlConfig tomlConfig = new TomlConfig();
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -53,6 +55,7 @@ public class ArmorCombat implements ClientModInitializer {
 		ArmorHidingHelper.SLOT_MAP.put(EquipmentSlot.FEET, 3);
 
 		config = ArmorHidingConfig.loadConfig();
+		tomlConfig.loadConfig();
 
 		ClientTickEvents.START.register(this::decrementHideTime);
 	}

@@ -8,7 +8,7 @@ import org.quiltmc.loader.api.QuiltLoader;
 import java.io.*;
 
 public class ArmorHidingConfig {
-	private static final String CONFIG_LOCATION = QuiltLoader.getConfigDir() + "/aimfc.json";
+	public static final String CONFIG_LOCATION = QuiltLoader.getConfigDir() + "/aimfc.json";
 	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public static ConfigFormat hidingConfig;
