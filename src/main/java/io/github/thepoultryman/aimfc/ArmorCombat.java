@@ -4,6 +4,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.github.thepoultryman.aimfc.commands.AimfcCommand;
 import io.github.thepoultryman.aimfc.commands.OverrideHiddenArmorCommands;
+import io.github.thepoultryman.aimfc.commands.ReloadConfigCommand;
 import io.github.thepoultryman.aimfc.config.ArmorHidingConfig;
 import io.github.thepoultryman.aimfc.config.ConfigFormat;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -39,6 +40,9 @@ public class ArmorCombat implements ClientModInitializer {
 					.then(literal("on").executes(new OverrideHiddenArmorCommands.TurnOn()))
 					.then(literal("off").executes(new OverrideHiddenArmorCommands.TurnOff())).build();
 			aimfcCommand.then(overrideCommand);
+
+			LiteralCommandNode<QuiltClientCommandSource> configReloadCommand = literal("reloadconfig").executes(new ReloadConfigCommand()).build();
+			aimfcCommand.then(configReloadCommand);
 
 			dispatcher.getRoot().addChild(aimfcCommand.build());
 		}));

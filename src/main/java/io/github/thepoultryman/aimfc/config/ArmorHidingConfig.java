@@ -68,4 +68,17 @@ public class ArmorHidingConfig {
 			ArmorCombat.config = loadConfig();
 		}
 	}
+
+	public static void reloadConfig() {
+		if (new File(CONFIG_LOCATION).exists()) {
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(CONFIG_LOCATION));
+				ArmorCombat.config = gson.fromJson(reader, ConfigFormat.class);
+			} catch (FileNotFoundException e) {
+				ArmorCombat.LOGGER.warn("There was an error reading your config file.", e);
+			}
+		} else {
+			ArmorCombat.config = loadConfig();
+		}
+	}
 }
