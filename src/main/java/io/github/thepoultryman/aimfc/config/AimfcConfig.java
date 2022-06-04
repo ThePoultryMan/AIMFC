@@ -3,7 +3,7 @@ package io.github.thepoultryman.aimfc.config;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import org.quiltmc.loader.api.QuiltLoader;
 
-public class TomlConfig {
+public class AimfcConfig {
 	private final FileConfig config;
 
 	// Config Values
@@ -12,7 +12,7 @@ public class TomlConfig {
 	private final boolean[] alwaysVisibleParts = new boolean[4];
 	private Elytra elytraConfig;
 
-	public TomlConfig() {
+	public AimfcConfig() {
 		this.config = FileConfig.builder(QuiltLoader.getConfigDir() + "/aimfc.toml").defaultResource("/aimfc.toml").autosave().build();
 	}
 

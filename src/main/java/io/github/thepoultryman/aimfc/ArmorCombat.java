@@ -5,7 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.github.thepoultryman.aimfc.commands.AimfcCommand;
 import io.github.thepoultryman.aimfc.commands.OverrideHiddenArmorCommands;
 import io.github.thepoultryman.aimfc.commands.ReloadConfigCommand;
-import io.github.thepoultryman.aimfc.config.TomlConfig;
+import io.github.thepoultryman.aimfc.config.AimfcConfig;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBind;
@@ -25,7 +25,7 @@ public class ArmorCombat implements ClientModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("aimfc");
 
 	private static final KeyBind TOGGLE_KEY = new KeyBind("key.aimfc.toggle_armor_hiding", GLFW.GLFW_KEY_H, "key.aimfc.category");
-	public static TomlConfig config = new TomlConfig();
+	public static AimfcConfig config = new AimfcConfig();
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -69,7 +69,6 @@ public class ArmorCombat implements ClientModInitializer {
 		while (TOGGLE_KEY.wasPressed()) {
 			if (client.player != null) {
 				config.setOverrideHiddenArmor(!config.shouldOverrideHiddenArmor());
-				//ArmorHidingConfig.saveConfigChanges(config);
 				ArmorHidingHelper.sendStatusChatMessage(client.player);
 			} else {
 				LOGGER.warn("Armor hiding cannot be disabled due to an unusual error.");
