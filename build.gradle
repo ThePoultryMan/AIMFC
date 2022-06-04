@@ -26,8 +26,8 @@ dependencies {
 	// Quilted Fabric API will automatically pull in the correct QSL version.
 	modImplementation libs.quilted.fabric.api
 
-	implementation libs.night.config
-	implementation libs.night.config.toml
+	shadow libs.night.config
+	shadow libs.night.config.toml
 }
 
 processResources {
