@@ -1,2 +1,11 @@
 override_hidden_armor = false
 armor_visibility_delay = 20
+[always_visible_parts]
+	head = false
+	chest = false
+	legs = false
+	feet = false
+[hide_other_pieces]
+	[elytra]
+		hide = false
+		dynamic_reveal = true
